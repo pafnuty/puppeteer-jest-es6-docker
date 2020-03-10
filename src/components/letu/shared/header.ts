@@ -5,6 +5,8 @@ const selectors = {
   cartLink: '.LETUR-CartLink',
   wishList: '.LETUR-WishlistLink',
   loginLink: '.LETUR-LoginLink',
+  searchInput: 'input[name="Ntt"]',
+  searchSuggestions: '.search-result__rightcol ul.ui-menu',
 }
 
 export default class LetuHeader extends Rest {
@@ -35,5 +37,10 @@ export default class LetuHeader extends Rest {
     await super.waitFor(this.selectors.loginLink)
 
     return super.getText(this.selectors.loginLink)
+  }
+
+  async getSearchResult(text: string) {
+    await super.type(this.selectors.searchInput, text)
+    return super.waitForResponseURLToContain('resultslist-data')
   }
 }

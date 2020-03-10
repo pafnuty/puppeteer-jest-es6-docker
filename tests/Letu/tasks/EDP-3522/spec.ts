@@ -1,12 +1,15 @@
 import { singlePack, test } from '@actions'
 import pages from '@pages'
+import { browser } from '@config/jest.settings'
 
 const LetuHeader = pages.letuHeader
 
-singlePack('main page', () => {
-  test('is header exists', async () => {
+singlePack('EDP-3522', () => {
+  test('is browser opened', async () => {
     await LetuHeader.open()
+  })
 
+  test('is header exists', async () => {
     expect(await LetuHeader.checkIsHeaderExists()).toBeTruthy()
   })
 
@@ -26,5 +29,9 @@ singlePack('main page', () => {
     const loginLikText = await LetuHeader.getLoginLinkText()
 
     expect(loginLikText).toEqual('Войти')
+  })
+
+  test('is browser closed', async () => {
+    await browser.close()
   })
 })
